@@ -1,1 +1,15 @@
-<h1> Hello </h1>
+<div class ="container">
+
+	<h1 class = "appname"> FLIN </h1>
+
+	<div class = "form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
+		<label for = "authorgender"> Gender </label>
+		<select class="form-control">
+			<option>Male</option>
+			<option>Female</option>
+		</select>
+		<label for = "authorage"> Age </label>
+		<input type= "range"  id="authorage" name="points" min="0" max="100" onchange="updateTextInput(this.value);">
+		<input type="text" id="textInput" value="">
+	</div>
+</div>

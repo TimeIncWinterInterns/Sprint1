@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+@import url(//fonts.googleapis.com/css?family=Trochut);
+
+h1.appname {
+	font-family: 'Trochut', cursive;
+	font-size: 100px;
+	letter-spacing: 2px;
+	text-align: center;
+}
