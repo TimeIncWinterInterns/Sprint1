@@ -3,13 +3,38 @@
 	<h1 class = "appname"> FLIN </h1>
 
 	<div class = "form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4">
-		<label for = "authorgender"> Gender </label>
+		<label for = "authorgender"> Poster's Gender </label>
 		<select class="form-control">
 			<option>Male</option>
 			<option>Female</option>
 		</select>
-		<label for = "authorage"> Age </label>
-		<input type= "range"  id="authorage" name="points" min="0" max="100" onchange="updateTextInput(this.value);">
-		<input type="text" id="textInput" value="">
+
+		<label for = "authorgender"> Poster's Location </label>
+		<p> placeholder location </p>
+
+		<label for = "authorage"> Poster's Age </label>
+		<input type="text" id="authorage" readonly style="border:0; color:#f6931f; font-weight:bold;">
+		<div id="slider-range"></div>
+
+		<label for = "subscribers"> Subscribers</label>
+		<input type="text" id="subscribers" readonly style="border:0; color:#f6931f; font-weight:bold;">
+		<div id="slider-range2"></div>
+
+		<label for = "monthlyviews"> Monthly Views</label>
+		<input type="text" id="monthlyviews" readonly style="border:0; color:#f6931f; font-weight:bold;">
+		<div id="slider-range3"></div>
+
+		<label for = "audiencegender"> Audience Gender </label>
+		<select class="form-control">
+			<option>Male</option>
+			<option>Female</option>
+		</select>
+
+		<label for = "audienceage">  Audience Age</label>
+		<input type="text" id="audienceage" readonly style="border:0; color:#f6931f; font-weight:bold;">
+		<div id="slider-range4"></div>
+
+		<label for = "authorgender"> Audience Location </label>
+		<p> placeholder location </p>
 	</div>
 </div>
