@@ -6,17 +6,51 @@
 
 		<h3> YouTube Content Creators Criteria </h3>
 		<label for = "authorgender"> YouTuber's Gender </label>
-		<select class="form-control " id ="authorgender">
+		<select class="form-control" id ="authorgender">
 			<option>Male</option>
 			<option>Female</option>
 		</select>
+
+		<label for = "genre"> Genre </label>
+		<select class= "form-control" id= "genre">
+			<option> Action & Adventure </option>
+			<option>Animation & Cartoons</option>
+			<option>Classic TV</option>
+			<option>Comedy</option>
+			<option>Drama</option>
+			<option>Home & Garden</option>
+			<option>News</option>
+			<option>Reality & Game Shows</option>
+			<option>Science & Tech</option>
+			<option>Science Fiction</option>
+			<option>Soaps</option>
+			<option>Sports</option>
+			<option>Travel</option>
+			<option>Entertainment</option>
+			<option>Documentary</option>
+			<option>Nature</option>
+			<option>Beauty & Fashion</option>
+			<option>Food</option>
+			<option>Gaming</option>
+			<option>Health & Fitness</option>
+			<option>Learning & Education</option>
+			<option>Foreign Language</option>
+		</select>
+
 
 		<label for = "authorlocation"> YouTuber's Location </label>
 		<input type="text" id="authorlocation" class = "form-control" placeholder="City, State, Zipcode, Country">
 
 		<label for = "authorage"> YouTuber's Age </label>
-		<input type="text" id="authorage" readonly style="border:0; color:#f6931f; font-weight:bold;">
-		<div id="slider-range"></div>
+		<select class = "form-control" id = "authorage" readonly style="border:0; color:#f6931f; font-weight:bold;">
+			<option> 13-17 </option>
+			<option> 18-24 </option>
+			<option> 25-34 </option>
+			<option> 35-44 </option>
+			<option> 45-54 </option>
+			<option> 55-64 </option>
+			<option> 65- </option>
+		</select>
 
 		<label for = "subscribers"> Subscribers</label>
 		<input type="text" id="subscribers" readonly style="border:0; color:#f6931f; font-weight:bold;">
@@ -34,13 +68,14 @@
 			<option>Female</option>
 		</select>
 
-		<label for = "audienceage">  Audience's Age</label>
-		<input type="text" id="audienceage" readonly style="border:0; color:#f6931f; font-weight:bold;">
-		<div id="slider-range4"></div>
-
 		<label for = "audiencelocation"> Audience's Location </label>
 		<input type="text" id="audiencelocation" class = "form-control" placeholder="City, State, Zipcode, Country">
 
+		<label for = "audienceage">  Audience's Age</label>
+		<input type="text" id="audienceage" readonly style="border:0; color:#f6931f; font-weight:bold;">
+		<div id="slider-range4"></div>
+		<div id= "button">
 		<input class="btn btn-warning col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2" type="button" value="Submit">
+	</div>
 	</div>
 </div>

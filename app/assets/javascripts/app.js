@@ -12,6 +12,27 @@ $(function(){
 		console.log(audienceGender);
 		var audienceAge = $("#audienceage").val();
 		console.log(audienceAge);
+		var audienceLocation = $("#audiencelocation").val();
+		console.log(audienceLocation);
+		var authorLocation = $("#authorlocation").val();
+		console.log(authorLocation);
+		var genre = $("#genre").val();
+		console.log(genre);
+		$.ajax({
+			url: "http://gdata.youtube.com/feeds/api/videos?q="+ genre +"&max-results=10&v=2&dimensions=age"+posterAge+","+posterGender+","+authorLocation+"&prettyprint=true&metrics="+subscribers+'"'
+		}).done(function(data){
+			var nameTag = data.children[0].children[16].children[12].children[0]
+			var authorName = $(nameTag).text()
+			console.log(authorName)
+			var published = data.children[0].children[16].children[1].firstChild["data"];
+			var updated = data.children[0].children[16].children[2].firstChild["data"];
+			console.log(published)
+			console.log(updated)
+			var videoTitle =data.children[0].children[16].children[6].innerHTML
+			console.log(videoTitle)
+			var videoUrl = $(data.children[0].children[16].children[7]).attr('src')
+			console.log(videoUrl)
+		})
 	})
 })
 

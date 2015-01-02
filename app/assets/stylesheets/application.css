@@ -30,6 +30,7 @@ h1.appname {
 }
 h3 {
 	text-align: center;
+	padding-top: 20px;
 }
 
 div.spin{
@@ -161,4 +162,8 @@ div.spin{
       -75px  125px 0 40px #FE9A2E,
      -150px    0px 0 40px #F3E2A9;
   }
+}
+
+#button {
+	padding: 30px;
 }
