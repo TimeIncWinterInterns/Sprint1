@@ -14,24 +14,46 @@ $(function(){
 		console.log(audienceAge);
 		var audienceLocation = $("#audiencelocation").val();
 		console.log(audienceLocation);
-		var authorLocation = $("#authorlocation").val();
-		console.log(authorLocation);
+		var posterLocation = $("#authorlocation").val();
+		console.log(posterLocation);
 		var genre = $("#genre").val();
 		console.log(genre);
 		$.ajax({
-			url: "http://gdata.youtube.com/feeds/api/videos?q="+ genre +"&max-results=10&v=2&dimensions=age"+posterAge+","+posterGender+","+authorLocation+"&prettyprint=true&metrics="+subscribers+'"'
+			type: "GET",
+			url: "http://gdata.youtube.com/feeds/api/videos?q="+ genre +"&max-results=10&v=2&&key=AIzaSyAvkL7_sQDpLa1g86QL7K4yaEkiV_OGBKc"
 		}).done(function(data){
-			var nameTag = data.children[0].children[16].children[12].children[0]
-			var authorName = $(nameTag).text()
+			console.log(data)
+			nameTag = data.children[0].children[16].children[12].children[0]
+			console.log(nameTag)
+			authorName = $(nameTag).text()
 			console.log(authorName)
-			var published = data.children[0].children[16].children[1].firstChild["data"];
-			var updated = data.children[0].children[16].children[2].firstChild["data"];
+			published = data.children[0].children[16].children[1].firstChild["data"];
+			updated = data.children[0].children[16].children[2].firstChild["data"];
 			console.log(published)
 			console.log(updated)
-			var videoTitle =data.children[0].children[16].children[6].innerHTML
+			videoTitle =data.children[0].children[16].children[6].innerHTML
 			console.log(videoTitle)
-			var videoUrl = $(data.children[0].children[16].children[7]).attr('src')
+			videoUrl = $(data.children[0].children[16].children[7]).attr('src')
 			console.log(videoUrl)
+		}).fail(function(){
+			console.log("failed")
+		}).done(function(){
+			$.ajax({
+				type: "GET",
+				url: "/youtube",	
+				data: {
+					nameTag: nameTag,
+					authorName: authorName,
+					published: published,
+					updated: updated,
+					videoTitle: videoTitle,
+					videoUrl: videoUrl
+				}
+			}).done(function(){
+				console.log("here")
+			}).fail(function(){
+				console.log("boooo")
+			})
 		})
 	})
 })
