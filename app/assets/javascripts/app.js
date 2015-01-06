@@ -16,16 +16,21 @@ $(function(){
 		//console.log(audienceLocation);
 		var authorLocation = $("#authorlocation").val();
 		//console.log(authorLocation);
+		//console.log(audienceLocation);
+		var posterLocation = $("#authorlocation").val();
+		//console.log(posterLocation);
 		var genre = $("#genre").val();
 		//console.log(genre);
-		$.ajax({
+		$.post( "/information" );
+		/*$.ajax({
 			type: 'GET',
 			url: '/information',
 			data: {
 				posterGender: posterGender,
 				posterAge: posterAge,
-				genre: genre/*,
-				audienceLocation: audienceLocation*/
+				genre: genre,
+				audienceGender: audienceGender/*,
+				audienceLocation: audienceLocation*//*
 			},
 			success: function(data){
 				console.log(data);
@@ -34,9 +39,9 @@ $(function(){
 			fail: function() {
 				console.log("error");
 			}
-		})/*.done(function(data){
+		})*//*.done(function(data){
 			console.log("done");
-			$(location).attr('href','/information');
+			$(location).attr('href','/information?posterGender='+posterGender+'&posterAge='+posterAge+'&genre='+genre);
 		}).fail(function() {
 			console.log("error");
 		})*/
@@ -79,4 +84,40 @@ $(function(){
 		})*/
 	})
 })
-
+/*
+			type: "GET",
+			url: "http://gdata.youtube.com/feeds/api/videos?q="+ genre +"&max-results=10&v=2&&key=AIzaSyAvkL7_sQDpLa1g86QL7K4yaEkiV_OGBKc"
+		}).done(function(data){
+			console.log(data)
+			for (i = 16; i< 25; i++){
+				nameTag = data.children[0].children[i].children[14].children[0]
+				console.log(nameTag)
+				authorName = $(nameTag).text()
+				console.log(authorName)
+				published = data.children[0].children[i].children[1].firstChild["data"];
+				updated = data.children[0].children[i].children[2].firstChild["data"];
+				console.log(published)
+				console.log(updated)
+				videoTitle =data.children[0].children[i].children[5].innerHTML
+				console.log(videoTitle)
+				videoUrl = $(data.children[0].children[i].children[6]).attr('src')
+				console.log(videoUrl)
+			}
+				$.ajax({
+					type: "GET",
+					url: "/youtube",	
+					data: {
+						nameTag: nameTag,
+						authorName: authorName,
+						published: published,
+						updated: updated,
+						videoTitle: videoTitle,
+						videoUrl: videoUrl
+					}
+				}).done(function(){
+					console.log("here")
+				}).fail(function(){
+				console.log("failed")
+				})
+			})
+		})*/

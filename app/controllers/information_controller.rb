@@ -5,14 +5,18 @@ class InformationController < ApplicationController
 		#@published = params["published"]
 		#@updated = params["updated"]
 		#@videoTitle = params["videoTitle"]
-		#url = "http://gdata.youtube.com/feeds/api/videos?q=male&max-results=10&v=2&dimensions=age7-18,male&prettyprint=true"
-		#url.gsub!(/\s+/, "")
+		@posterGender = params["posterGender"]
+		@posterAge = params["posterAge"]
+		@genre = params["genre"]
+		@audienceGender = params["audienceGender"]
+		url = "http://gdata.youtube.com/feeds/api/videos?q=#{@genre}&#{@posterGender}&max-results=10&v=2&dimensions=age#{@posterAge},#{@audienceGender}&prettyprint=true"
+		url.gsub!(/\s+/, "")
+		#binding.pry
 		#@data = []
-		#data = HTTParty.get(url)
+		@data = HTTParty.get(url)
+		#URI.parse(data)
 		#@data.push(data)
 		#binding.pry
-		#render 
-		render "<div>SUCCESS</div>"
-		#render "information/information"
+		render :information
 	end
 end
