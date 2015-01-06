@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   get '/' => 'root#index'
-  get 'youtube' => 'youtube#show'
+  get '/youtube' => 'youtube#information'
+  post '/youtube' => 'youtube#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
