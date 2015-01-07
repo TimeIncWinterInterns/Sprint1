@@ -22,19 +22,35 @@ class YoutubeController < ApplicationController
 
 
 		doc.css('entry').each do |youtuber|
-			author = youtuber.children[14].children[0].text
-			published = youtuber.children[1].text
-			updated = youtuber.children[2].text
-			video_title = youtuber.children[5].text
+			if youtuber.children[14].children[0]
+				author = youtuber.children[14].children[0].text
+			else
+				author = ""
+			end
+			if youtuber.children[1]
+				published = youtuber.children[1].text
+			else
+				published = ""
+			end
+			if youtuber.children[2]
+				updated = youtuber.children[2].text
+			else
+				updated = ""
+			end
+			if youtuber.children[5]
+				video_title = youtuber.children[5].text
+			else
+				video_title = ""
+			end
 			if youtuber.children[6].attributes["src"]
 				video_url = youtuber.children[6].attributes["src"].value
 			else
-				video_url = "DNE"
+				video_url = "http://marshallandmagnes.files.wordpress.com/2011/11/8_x.png"
 			end
 			if youtuber.children[7].attributes["href"]
 				redirect_page = youtuber.children[7].attributes["href"].value
 			else
-				redirect_page = "DNE"
+				redirect_page = "http://marshallandmagnes.files.wordpress.com/2011/11/8_x.png"
 			end
 			hash = {}
 			hash["author_name"]= author
