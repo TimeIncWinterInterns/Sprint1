@@ -17,6 +17,6 @@ class InformationController < ApplicationController
 		#URI.parse(data)
 		#@data.push(data)
 		#binding.pry
-		render :information
+		render 'information/information'
 	end
 end
