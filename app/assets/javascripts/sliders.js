@@ -18,10 +18,10 @@
       max: 100000,
       values: [ 0, 100000 ],
       slide: function( event, ui ) {
-        $( "#monthlyviews" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        $( "#views" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
       }
     });
-    $( "#monthlyviews" ).val($("#slider-range3" ).slider( "values", 0 ) + " - " + $("#slider-range3" ).slider( "values", 1 ) + "+");
+    $( "#views" ).val($("#slider-range3" ).slider( "values", 0 ) + " - " + $("#slider-range3" ).slider( "values", 1 ) + "+");
   });
 
         $(function() {
