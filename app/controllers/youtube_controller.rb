@@ -11,7 +11,7 @@ class YoutubeController < ApplicationController
 		posterLocation = params["posterLocation"]
 		genre = params["genre"]
 
-		url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=9&v=2&&key=AIzaSyAvkL7_sQDpLa1g86QL7K4yaEkiV_OGBKc"
+		url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=8&v=2&&key=AIzaSyAvkL7_sQDpLa1g86QL7K4yaEkiV_OGBKc"
 
 		url.gsub!(/\s+/, "")
 		data = HTTParty.get(url)
@@ -44,12 +44,12 @@ class YoutubeController < ApplicationController
 			if youtuber.children[6].attributes["src"]
 				video_url = youtuber.children[6].attributes["src"].value
 			else
-				video_url = ""
+				video_url = "http://marshallandmagnes.files.wordpress.com/2011/11/8_x.png"
 			end
 			if youtuber.children[7].attributes["href"]
 				redirect_page = youtuber.children[7].attributes["href"].value
 			else
-				redirect_page = ""
+				redirect_page = "http://marshallandmagnes.files.wordpress.com/2011/11/8_x.png"
 			end
 			hash = {}
 			hash["author_name"]= author
