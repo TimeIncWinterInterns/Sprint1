@@ -10,18 +10,27 @@ class YoutubeController < ApplicationController
 		audienceLocation = params["audienceLocation"]
 		posterLocation = params["posterLocation"]
 		genre = params["genre"]
+		location_lat_lng = ""
 
+		if posterLocation != ""
+			location_url = "http://maps.googleapis.com/maps/api/geocode/json?address=#{posterLocation}"
+			location_data = HTTParty.get(location_url)
+			if location_data["status"] == "OK"
+				location_lat_lng = "#{location_data["results"][0]["geometry"]["location"]["lat"]},#{location_data["results"][0]["geometry"]["location"]["lng"]}"
+			end
+		end
+		url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=9&v=2&part=statistics&ageGroup=#{posterAge}&location=#{location_lat_lng}&order=viewCount&key=AIzaSyA0EcuzLSYPVHkyiUGMYxKlqFtahLANVkQ"
 
-
-		url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=9&v=2&part=statistics&ageGroup=#{posterAge}&sort=-#{views}&order=viewCount&key=AIzaSyA0EcuzLSYPVHkyiUGMYxKlqFtahLANVkQ"
 
 		url.gsub!(/\s+/, "")
 		data = HTTParty.get(url)
 		doc = Nokogiri::XML(data)
 
+		
 		@array =[]
 
 
+		binding.pry
 
 		doc.css('entry').each do |youtuber|
 			if youtuber.children[14].children[0]
@@ -75,24 +84,36 @@ class YoutubeController < ApplicationController
 			# 	average_rating = "Not Available"
 			# 	number_of_raters = "Not Available"
 			# end
-			if youtuber.children[25].name == "rating" && youtuber.children[25].namespace.prefix == "yt"
+			if youtuber.children[25] != nil
+				if youtuber.children[25].name == "rating" && youtuber.children[25].namespace.prefix == "yt"
 				number_of_likes = youtuber.children[25].attributes["numLikes"].value
 				number_of_likes = youtuber.children[25].attributes["numLikes"].value
-			elsif youtuber.children[26].name == "rating" && youtuber.children[26].namespace.prefix == "yt"
+			end
+			elsif youtuber.children[26] != nil
+				if youtuber.children[26].name == "rating" && youtuber.children[26].namespace.prefix == "yt"
 				number_of_likes = youtuber.children[26].attributes["numLikes"].value
 				number_of_likes = youtuber.children[26].attributes["numLikes"].value
-			elsif youtuber.children[27].name == "rating" && youtuber.children[27].namespace.prefix == "yt"
-				number_of_likes = youtuber.children[27].attributes["numLikes"].value
-				number_of_likes = youtuber.children[27].attributes["numLikes"].value
-			elsif youtuber.children[28].name == "rating"
-				number_of_likes = youtuber.children[28].attributes["numLikes"].value
-				number_of_dislikes = youtuber.children[28].attributes["numDislikes"].value
-			elsif youtuber.children[29].name == "rating"
-				number_of_likes = youtuber.children[29].attributes["numLikes"].value
-				number_of_dislikes = youtuber.children[29].attributes["numDislikes"].value
-			elsif youtuber.children[30].namespace == "rating" && youtuber.children[27].namespace.prefix == "yt"
-				number_of_likes = youtuber.children[30].attributes["numLikes"].value
-				number_of_likes = youtuber.children[30].attributes["numLikes"].value
+			end
+			elsif youtuber.children[27] != nil
+				if youtuber.children[27].name == "rating" && youtuber.children[27].namespace.prefix == "yt"
+					number_of_likes = youtuber.children[27].attributes["numLikes"].value
+					number_of_likes = youtuber.children[27].attributes["numLikes"].value
+				end
+			elsif youtuber.children[28] != nil
+				if youtuber.children[28].name == "rating"
+					number_of_likes = youtuber.children[28].attributes["numLikes"].value
+					number_of_dislikes = youtuber.children[28].attributes["numDislikes"].value
+				end
+			elsif youtuber.children[29] != nil
+				if youtuber.children[29].name == "rating"
+					number_of_likes = youtuber.children[29].attributes["numLikes"].value
+					number_of_dislikes = youtuber.children[29].attributes["numDislikes"].value
+				end
+			elsif youtuber.children[30] != nil
+				if youtuber.children[30].namespace == "rating" && youtuber.children[27].namespace.prefix == "yt"
+					number_of_likes = youtuber.children[30].attributes["numLikes"].value
+					number_of_likes = youtuber.children[30].attributes["numLikes"].value
+				end
 			else 
 				number_of_likes = "Not Available"
 				number_of_dislikes = "Not Available"
