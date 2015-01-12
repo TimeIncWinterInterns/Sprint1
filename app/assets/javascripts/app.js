@@ -1,12 +1,12 @@
 $(function(){ 
-	$('.btn-warning').click(function(){
+	$('.btn-danger').click(function(){
 		var posterGender = $('#authorgender').val();
 		// console.log(posterGender);
 		var posterAge = $('#authorage').val();
 		// console.log(posterAge);
 		var subscribers = $('#subscribers').val();
 		// console.log(subscribers);
-		var monthlyViews = $('#monthlyviews').val();
+		var views = $('#views').val();
 		// console.log(monthlyViews);
 		var audienceGender = $('#audiencegender').val();
 		// console.log(audienceGender);
@@ -25,7 +25,7 @@ $(function(){
 				posterGender: posterGender,
 				posterAge: posterAge,
 				subscribers: subscribers,
-				monthlyViews: monthlyViews,
+				views: views,
 				audienceGender: audienceGender,
 				audienceAge: audienceAge,
 				audienceLocation: audienceLocation,
@@ -36,35 +36,34 @@ $(function(){
 			console.log(data)
 			console.log(data.length)
 			console.log("here")
-			//$('div#information').empty();
-			$('div#info1').empty();
-			$('div#info2').empty();
-			var div_type = 1;
+			$('div#information').empty();
 			for(i=0; i < data.length; i++){
-
 				var p_published = $("<p></p>");
 				var p_updated = $("<p></p>");
-				var p_video_title = $("<p></p>");
-				var p_author_name = $("<p></p>");
+				var p_video_title = $("<h4></h4>");
+				var p_author_name = $("<h2></h2>");
 				var p_video_url = $("<p></p>");
 				var p_redirect_page = $("<p></p>");
-				var video_link =  $("<a></a>");
+				var video_link = $("<a></a>");
 				var video_tag = $("<object></object>")
-				var div_to_add = null;
+				var p_number_of_likes = $("<p></p>")
+				var p_number_of_dislikes = $("<p></p>")
 
-				video_link.attr('href', data[i].redirect_page)
-				video_link.attr('target', "_blank")
-				video_tag.attr('width', "320")
-				video_tag.attr('height', "240")
+				video_tag.attr('width', "420")
+				video_tag.attr('height', "315")
 				video_tag.attr('data', data[i].video_url)
+				video_link.attr('href', data[i].redirect_page)
+				video_link.attr('target', '_blank')
 
 				author_name = document.createTextNode("Author Name: "+ data[i].author_name)
-				published = document.createTextNode("Published: " + data[i].published)
-				updated = document.createTextNode("Updated: " + data[i].updated)
+				published = document.createTextNode("Published:" + " " + data[i].published)
+				updated = document.createTextNode("Updated:" + " " + data[i].updated)
 				video_title = document.createTextNode("Video Title: " + data[i].video_title)
-				video_url = document.createTextNode("Video: ")
+				video_url = document.createTextNode("Video:")
 				redirect_page = document.createTextNode("Redirect Page: ")
 				video_link_text = document.createTextNode(data[i].redirect_page)
+				number_of_likes = document.createTextNode("Number of Likes: " + data[i].number_of_likes)
+				number_of_dislikes = document.createTextNode("Number of Dislikes: " + data[i].number_of_dislikes)
 
 				$(p_author_name).append(author_name)
 				$(p_published).append(published)
@@ -74,30 +73,17 @@ $(function(){
 				$(p_redirect_page).append(redirect_page)
 				$(video_link).append(video_link_text)
 				$(p_redirect_page).append(video_link)
+				$(p_number_of_likes).append(number_of_likes)
+				$(p_number_of_dislikes).append(number_of_dislikes)
 
-
-				if(div_type == 1){
-					div_to_add = $('div#info1');
-					div_type = 2;
-				}
-				else{
-					div_to_add = $('div#info2');
-					div_type = 1;
-				}
-
-				div_to_add.append(p_author_name)
-				div_to_add.append(p_video_title)
-				div_to_add.append(p_published)
-				div_to_add.append(p_updated)
-				div_to_add.append(video_tag)
-				div_to_add.append(p_redirect_page)
-
-				/*$('div#information').append(p_author_name)
+				$('div#information').append(video_tag)
+				$('div#information').append(p_author_name)
 				$('div#information').append(p_video_title)
 				$('div#information').append(p_published)
 				$('div#information').append(p_updated)
-				$('div#information').append(video_tag)
-				$('div#information').append(p_redirect_page)*/
+				$('div#information').append(p_redirect_page)
+				$('div#information').append(p_number_of_likes)
+				$('div#information').append(p_number_of_dislikes)
 			}
 		}).fail(function(data){
 			console.log("failed")

@@ -14,23 +14,55 @@
  *= require_self
  */
 @import url(//fonts.googleapis.com/css?family=Trochut);
-@import url(http://fonts.googleapis.com/css?family=Slabo+27px);
+@import url(//fonts.googleapis.com/css?family=Slabo+27px);
+@import url(http://fonts.googleapis.com/css?family=Pathway+Gothic+One);
+@import url(http://fonts.googleapis.com/css?family=Muli);
 
-body {
-	background-color: black;
-}
 h1.appname {
 	font-family: 'Trochut', cursive;
+  color:white;
 	font-size: 100px;
 	letter-spacing: 2px;
 	text-align: center;
+  background-color:rgb(231,76,60);
+  padding-bottom: 10px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  width:50%;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: 10px 10px 10px gray;
+  border: 5px solid black;
+  border-radius: 25px;
 }
 #animate {
 	font-family: 'Slabo 27px', serif;
 }
-h3 {
+
+object {
+  padding-top: 50px;
+}
+
+h2 {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  color: rgb(206,32,33);
+  font-family: 'Oswald', sans-serif;
+}
+h3.title {
+  color: rgb(206,32,33);
 	text-align: center;
-	padding-top: 20px;
+	padding-top: 30px;
+}
+
+h4 {
+  text-align: center;
+  color: rgb(206,32,33);
+  font-family: 'Fjalla One', sans-serif;
+}
+p {
+  font-family: 'Muli', sans-serif;
+  text-align: center
 }
 
 div.spin{
@@ -40,130 +72,135 @@ div.spin{
   top:80%; left:80%;
   margin-top:-1px; margin-left:-1px;
   box-shadow:
-    -75px -125px 0 40px #F3E2A9,
-     75px -125px 0 40px #F5DA81,
-    150px    0px 0 40px #F7BE81,
-     75px  125px 0 40px #FAAC58,
-    -75px  125px 0 40px #FE9A2E,
-   -150px    0px 0 40px #DF7401;
+    -75px -125px 0 40px rgb(231,76,60),
+     75px -125px 0 40px rgb(192,57,43),
+    150px    0px 0 40px rgb(140,152,153),
+     75px  125px 0 40px rgb(149,165,166),
+    -75px  125px 0 40px rgb(203,208,211),
+   -150px    0px 0 40px rgb(236,240,241);
   -webkit-animation:rotate 12s infinite linear;
   animation:rotate 12s infinite linear;
 }
 @keyframes rotate {
   16.67% {
     box-shadow:
-      -75px -125px 0 40px #DF7401,
-       75px -125px 0 40px #F3E2A9,
-      150px    0px 0 40px #F5DA81,
-       75px  125px 0 40px #F7BE81,
-      -75px  125px 0 40px #FAAC58,
-     -150px    0px 0 40px #FE9A2E;
+      -75px -125px 0 40px rgb(236,240,241),
+       75px -125px 0 40px rgb(231,76,60),
+      150px    0px 0 40px rgb(192,57,43),
+       75px  125px 0 40px rgb(140,152,153),
+      -75px  125px 0 40px rgb(149,165,166),
+     -150px    0px 0 40px rgb(203,208,211),
   }
   33.33%   { 
     box-shadow:
-      -75px -125px 0 40px #FE9A2E,
-       75px -125px 0 40px #DF7401,
-      150px    0px 0 40px #F3E2A9,
-       75px  125px 0 40px #F5DA81,
-      -75px  125px 0 40px #F7BE81,
-     -150px    0px 0 40px #FAAC58;
+      -75px -125px 0 40px rgb(203,208,211),
+       75px -125px 0 40px rgb(236,240,241),
+      150px    0px 0 40px rgb(231,76,60),
+       75px  125px 0 40px rgb(192,57,43),
+      -75px  125px 0 40px rgb(140,152,153),
+     -150px    0px 0 40px rgb(149,165,166),
   }
   50%      { 
     box-shadow:
-      -75px -125px 0 40px #FAAC58,
-       75px -125px 0 40px #FE9A2E,
-      150px    0px 0 40px #DF7401,
-       75px  125px 0 40px #F3E2A9,
-      -75px  125px 0 40px #F5DA81,
-     -150px    0px 0 40px #F7BE81;
+      -75px -125px 0 40px rgb(149,165,166),
+       75px -125px 0 40px rgb(203,208,211),
+      150px    0px 0 40px rgb(236,240,241),
+       75px  125px 0 40px rgb(231,76,60),
+      -75px  125px 0 40px rgb(192,57,43),
+     -150px    0px 0 40px rgb(140,152,153),
   }
   66.67%   { 
     box-shadow:
-      -75px -125px 0 40px #F7BE81,
-       75px -125px 0 40px #FAAC58,
-      150px    0px 0 40px #FE9A2E,
-       75px  125px 0 40px #DF7401,
-      -75px  125px 0 40px #F3E2A9,
-     -150px    0px 0 40px #F5DA81;
+      -75px -125px 0 40px rgb(140,152,153),
+       75px -125px 0 40px rgb(149,165,166),
+      150px    0px 0 40px rgb(203,208,211),
+       75px  125px 0 40px rgb(236,240,241),
+      -75px  125px 0 40px rgb(231,76,60),
+     -150px    0px 0 40px rgb(192,57,43);
   }
   88.88%   { 
     box-shadow:
-      -75px -125px 0 40px #F5DA81,
-       75px -125px 0 40px #F7BE81,
-      150px    0px 0 40px #FAAC58,
-       75px  125px 0 40px #FE9A2E,
-      -75px  125px 0 40px #DF7401,
-     -150px    0px 0 40px #F3E2A9;
+      -75px -125px 0 40px rgb(192,57,43),
+       75px -125px 0 40px rgb(140,152,153),
+      150px    0px 0 40px rgb(149,165,166),
+       75px  125px 0 40px rgb(203,208,211),
+      -75px  125px 0 40px rgb(236,240,241),
+     -150px    0px 0 40px rgb(231,76,60);
   }
   100% {
     transform:rotate(-360deg);
     box-shadow:
-      -75px -125px 0 40px #F3E2A9,
-       75px -125px 0 40px #F5DA81,
-      150px    0px 0 40px #F7BE81,
-       75px  125px 0 40px #FAAC58,
-      -75px  125px 0 40px #FE9A2E,
-     -150px    0px 0 40px #DF7401;
+      -75px -125px 0 40px rgb(231,76,60),
+       75px -125px 0 40px rgb(192,57,43),
+      150px    0px 0 40px rgb(140,152,153),
+       75px  125px 0 40px rgb(149,165,166),
+      -75px  125px 0 40px rgb(203,208,211),
+     -150px    0px 0 40px rgb(236,240,241);
   }
 }
 @-webkit-keyframes rotate {
   16.67% {
     box-shadow:
-      -75px -125px 0 40px #F3E2A9,
-       75px -125px 0 40px #DF7401,
-      150px    0px 0 40px #F5DA81,
-       75px  125px 0 40px #F7BE81,
-      -75px  125px 0 40px #FAAC58,
-     -150px    0px 0 40px #FE9A2E;
+      -75px -125px 0 40px rgb(236,240,241),
+       75px -125px 0 40px rgb(231,76,60),
+      150px    0px 0 40px rgb(192,57,43),
+       75px  125px 0 40px rgb(140,152,153),
+      -75px  125px 0 40px rgb(149,165,166),
+     -150px    0px 0 40px rgb(203,208,211),
   }
   33.33%   { 
     box-shadow:
-      -75px -125px 0 40px #FE9A2E,
-       75px -125px 0 40px #F3E2A9,
-      150px    0px 0 40px #DF7401,
-       75px  125px 0 40px #F5DA81,
-      -75px  125px 0 40px #F7BE81,
-     -150px    0px 0 40px #FAAC58;
+      -75px -125px 0 40px rgb(203,208,211),
+       75px -125px 0 40px rgb(236,240,241),
+      150px    0px 0 40px rgb(231,76,60),
+       75px  125px 0 40px rgb(192,57,43),
+      -75px  125px 0 40px rgb(140,152,153),
+     -150px    0px 0 40px rgb(149,165,166),
   }
   50%      { 
     box-shadow:
-      -75px -125px 0 40px #FAAC58,
-       75px -125px 0 40px #FE9A2E,
-      150px    0px 0 40px #F3E2A9,
-       75px  125px 0 40px #DF7401,
-      -75px  125px 0 40px #F5DA81,
-     -150px    0px 0 40px #F7BE81;
+      -75px -125px 0 40px rgb(149,165,166),
+       75px -125px 0 40px rgb(203,208,211),
+      150px    0px 0 40px rgb(236,240,241),
+       75px  125px 0 40px rgb(231,76,60),
+      -75px  125px 0 40px rgb(192,57,43),
+     -150px    0px 0 40px rgb(140,152,153),
   }
   66.67%   { 
     box-shadow:
-      -75px -125px 0 40px #F7BE81,
-       75px -125px 0 40px #FAAC58,
-      150px    0px 0 40px #FE9A2E,
-       75px  125px 0 40px #F3E2A9,
-      -75px  125px 0 40px #DF7401,
-     -150px    0px 0 40px #F5DA81;
+      -75px -125px 0 40px rgb(140,152,153),
+       75px -125px 0 40px rgb(149,165,166),
+      150px    0px 0 40px rgb(236,240,241),
+       75px  125px 0 40px rgb(203,208,211),
+      -75px  125px 0 40px rgb(231,76,60),
+     -150px    0px 0 40px rgb(192,57,43);
   }
   88.88%   { 
     box-shadow:
-      -75px -125px 0 40px #F5DA81,
-       75px -125px 0 40px #F7BE81,
-      150px    0px 0 40px #FAAC58,
-       75px  125px 0 40px #FE9A2E,
-      -75px  125px 0 40px #F3E2A9,
-     -150px    0px 0 40px #DF7401;
+      -75px -125px 0 40px rgb(192,57,43),
+       75px -125px 0 40px rgb(140,152,153),
+      150px    0px 0 40px rgb(149,165,166),
+       75px  125px 0 40px rgb(203,208,211),
+      -75px  125px 0 40px rgb(236,240,241),
+     -150px    0px 0 40px rgb(231,76,60);
   }
   100% {
     -webkit-transform:rotate(-360deg);
     box-shadow:
-      -75px -125px 0 40px #DF7401,
-       75px -125px 0 40px #F5DA81,
-      150px    0px 0 40px #F7BE81,
-       75px  125px 0 40px #FAAC58,
-      -75px  125px 0 40px #FE9A2E,
-     -150px    0px 0 40px #F3E2A9;
+      -75px -125px 0 40px rgb(231,76,60),
+       75px -125px 0 40px rgb(192,57,43),
+      150px    0px 0 40px rgb(140,152,153),
+       75px  125px 0 40px rgb(149,165,166),
+      -75px  125px 0 40px rgb(203,208,211),
+     -150px    0px 0 40px rgb(236,240,241),
   }
 }
 
 #button {
 	padding: 30px;
+}
+
+div#info-container{
+  background-color: black;
+  background-color:rgb(236,240,241);
 }
