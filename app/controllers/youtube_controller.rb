@@ -9,7 +9,11 @@ class YoutubeController < ApplicationController
 		audienceAge = params["audienceAge"]
 		audienceLocation = params["audienceLocation"]
 		posterLocation = params["posterLocation"]
+		order_by = params["orderby"]
 		genre = params["genre"]
+		request_again = true
+		total_results = 0
+
 		location_lat_lng = ""
 		max_results = 10
 		start_index = 1
@@ -25,105 +29,77 @@ class YoutubeController < ApplicationController
 			end
 		end
 
-		while @array.size < 10
+		if views.include? "+"
+			#views_to = views.gsub(/[\s+\+]/,"").split('-')[1]
+			views_query = "yt:statistics\/@viewCount > #{views.gsub(/[\s+\+]/,"").split('-')[1]}"
+			#views_from = views.gsub(/\s+/, "").split('-')[0]
+			#views_to = views.gsub(/\s+/, "").split('-')[1]
+		else
+			views_query = "yt:statistics/@viewCount > #{views.gsub(/[\s+\+]/,"").split('-')[0]} and yt:statistics/@viewCount < #{views.gsub(/[\s+\+]/,"").split('-')[1]}"
+		end
+
+		while request_again
 			#url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=8&v=2&&key=AIzaSyAvkL7_sQDpLa1g86QL7K4yaEkiV_OGBKc"
-			url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=#{max_results}&start-index=#{start_index}&v=2&part=statistics&ageGroup=#{posterAge}&location=#{location_lat_lng}&order=viewCount&key=AIzaSyA0EcuzLSYPVHkyiUGMYxKlqFtahLANVkQ"
+			#url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&start-index=#{start_index}&v=2&part=statistics&location=#{location_lat_lng}&orderby=#{order_by}&fields=entry[%{QUERY}]&key=AIzaSyA0EcuzLSYPVHkyiUGMYxKlqFtahLANVkQ"
+			url = "http://gdata.youtube.com/feeds/api/videos?q=#{genre}&max-results=#{max_results}&start-index=#{start_index}&v=2&part=statistics&location=#{location_lat_lng}&orderby=#{order_by}&key=AIzaSyA0EcuzLSYPVHkyiUGMYxKlqFtahLANVkQ"
 			#http://gdata.youtube.com/feeds/api/videos?q=oras&max-results=10&v=2&part=statistics&ageGroup=18-24&sort=-5000 - 8000&order=viewCount&key=AIzaSyA0EcuzLSYPVHkyiUGMYxKlqFtahLANVkQ
 			#url = "https://www.googleapis.com/youtube/v3/search?q=oras&part=snippet&order=rating&q=YouTube+Data+API&type=video&videoCaption=closedCaption&key=AIzaSyD4E3VKmr0mg2TUmZ2qQXWdIX87DSaeMIk"
+			#&fields=entry[yt:statistics/@viewCount > 10000 and yt:statistics/@viewCount < 50000]
+			#&fields=entry[#{views_query}]
 			url.gsub!(/\s+/, "+")
+			#url = url % {:QUERY => views_query}
+			#binding.pry
 			data = HTTParty.get(url)
 			doc = Nokogiri::XML(data)
-			total_results = doc.children[0].children[13].children[0].text
-			binding.pry
+			if start_index == 1
+				total_results = Integer(doc.children[0].children[13].children[0].text)
+			end
+			if (total_results - (start_index - 1))  < 11
+				request_again = false
+			end
 			doc.css('entry').each do |youtuber|
-				if youtuber.children[14].children[0]
-					author = youtuber.children[14].children[0].text
-				else
-					author = "Not Available"
+				author = "Not Available"
+				published = "Not Available"
+				updated = "Not Available"
+				video_title = "Not Available"
+				video_url = nil
+				redirect_page = nil
+				view_count = "Not Available"
+				number_of_likes = "Not Available"
+				number_of_dislikes = "Not Available"
+
+				youtuber.children.each do |child|
+					if child.name == "author" && child.children[0] != nil && child.children[0].name == "name"
+						author = child.children[0].text
+					end
+					if child.name == "published"
+						published = child.text
+					end
+					if child.name == "updated"
+						updated = child.text
+					end
+					if child.name == "title"
+						video_title = child.text
+					end
+					if child.name == "content"
+						video_url = child.attributes["src"].value
+					end
+					if child.name == "link" && child.attributes["rel"].value == "alternate"
+						redirect_page = child.attributes["href"].value
+					end
+					if child.name == "statistics"
+						view_count = child.attributes["viewCount"].value
+					end
+					if child.name == "rating" && child.namespace.prefix == "yt"
+						number_of_likes = child.attributes["numLikes"].value
+						number_of_dislikes = child.attributes["numDislikes"].value
+					end
 				end
-				if youtuber.children[1]
-					published = youtuber.children[1].text
-				else
-					published = "Not Available"
-				end
-				if youtuber.children[2]
-					updated = youtuber.children[2].text
-				else
-					updated = "Not Available"
-				end
-				if youtuber.children[5]
-					video_title = youtuber.children[5].text
-				else
-					video_title = "Not Available"
-				end
-				if youtuber.children[6].attributes["src"]
-					video_url = youtuber.children[6].attributes["src"].value
-				else
+
+				if video_url == nil || redirect_page == nil
 					next
-					video_url = "http://www.ncl.eu/images/mg/NCL/s/184/all-ships_image-not-available.jpg"
 				end
-				if youtuber.children[7].attributes["href"]
-					redirect_page = youtuber.children[7].attributes["href"].value
-				else
-					next
-					redirect_page = "http://www.ncl.eu/images/mg/NCL/s/184/all-ships_image-not-available.jpg"
-				end
-				if youtuber.children[23].name == "statistics"
-					view_count = youtuber.children[23].attributes["viewCount"].value
-				elsif youtuber.children[24].name == "statistics"
-					view_count = youtuber.children[24].attributes["viewCount"].value
-				elsif youtuber.children[25].name == "statistics"
-					view_count = youtuber.children[25].attributes["viewCount"].value
-				elsif youtuber.children[26].name == "statistics"
-					view_count = youtuber.children[26].attributes["viewCount"].value
-				else
-					view_count = "Not Available"
-				end
-				# if youtuber.children[28] != nil
-				# 	average_rating = youtuber.children[28].attributes["average"].value
-				# 	number_of_raters = youtuber.children[28].attributes["numRaters"].value
-				# elsif youtuber.children[26].attributes == {}
-				# 	average_rating = youtuber.children[27].attributes["average"].value
-				# 	number_of_raters = youtuber.children[27].attributes["numRaters"].value
-				# else
-				# 	average_rating = "Not Available"
-				# 	number_of_raters = "Not Available"
-				# end
-				#binding.pry
-				if youtuber.children[25] != nil
-					if youtuber.children[25].name == "rating" && youtuber.children[25].namespace.prefix == "yt"
-						number_of_likes = youtuber.children[25].attributes["numLikes"].value
-						number_of_likes = youtuber.children[25].attributes["numLikes"].value
-					end
-				elsif youtuber.children[26] != nil
-					if youtuber.children[26].name == "rating" && youtuber.children[26].namespace.prefix == "yt"
-						number_of_likes = youtuber.children[26].attributes["numLikes"].value
-						number_of_likes = youtuber.children[26].attributes["numLikes"].value
-					end
-				elsif youtuber.children[27] != nil
-					if youtuber.children[27].name == "rating" && youtuber.children[27].namespace.prefix == "yt"
-						number_of_likes = youtuber.children[27].attributes["numLikes"].value
-						number_of_likes = youtuber.children[27].attributes["numLikes"].value
-					end
-				elsif youtuber.children[28] != nil
-					if youtuber.children[28].name == "rating"
-						number_of_likes = youtuber.children[28].attributes["numLikes"].value
-						number_of_dislikes = youtuber.children[28].attributes["numDislikes"].value
-					end
-				elsif youtuber.children[29] != nil
-					if youtuber.children[29].name == "rating"
-						number_of_likes = youtuber.children[29].attributes["numLikes"].value
-						number_of_dislikes = youtuber.children[29].attributes["numDislikes"].value
-					end
-				elsif youtuber.children[30] != nil
-					if youtuber.children[30].namespace == "rating" && youtuber.children[27].namespace.prefix == "yt"
-						number_of_likes = youtuber.children[30].attributes["numLikes"].value
-						number_of_likes = youtuber.children[30].attributes["numLikes"].value
-					end
-				else 
-					number_of_likes = "Not Available"
-					number_of_dislikes = "Not Available"
-				end
+
 				hash = {}
 				hash["author_name"]= author
 				hash["published"] = published
@@ -132,9 +108,11 @@ class YoutubeController < ApplicationController
 				hash["video_url"] = video_url
 				hash["redirect_page"] = redirect_page
 				hash["number_of_likes"] = number_of_likes
+				hash["view_count"] = view_count
 				hash["number_of_dislikes"] = number_of_dislikes
 				@array.push(hash)
 				if @array.size == 10
+					request_again = false
 					break
 				end
 			end

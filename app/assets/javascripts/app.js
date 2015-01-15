@@ -16,6 +16,8 @@ $(function(){
 		// console.log(audienceLocation);
 		var posterLocation = $("#authorlocation").val();
 		// console.log(posterLocation);
+		var orderby = $('#orderby').val();
+		// console.log(orderby);
 		var genre = $("#genre").val();
 		// console.log(genre);
 		$.ajax({
@@ -30,6 +32,7 @@ $(function(){
 				audienceAge: audienceAge,
 				audienceLocation: audienceLocation,
 				posterLocation: posterLocation,
+				orderby: orderby,
 				genre: genre
 			}
 		}).done(function(data){
@@ -48,6 +51,7 @@ $(function(){
 				var video_tag = $("<object></object>")
 				var p_number_of_likes = $("<p></p>")
 				var p_number_of_dislikes = $("<p></p>")
+				var p_number_of_views = $("<p></p>")
 
 				video_tag.attr('width', "420")
 				video_tag.attr('height', "315")
@@ -64,6 +68,7 @@ $(function(){
 				video_link_text = document.createTextNode(data[i].redirect_page)
 				number_of_likes = document.createTextNode("Number of Likes: " + data[i].number_of_likes)
 				number_of_dislikes = document.createTextNode("Number of Dislikes: " + data[i].number_of_dislikes)
+				number_of_views = document.createTextNode("Number of Views: " + data[i].view_count)
 
 				$(p_author_name).append(author_name)
 				$(p_published).append(published)
@@ -75,6 +80,7 @@ $(function(){
 				$(p_redirect_page).append(video_link)
 				$(p_number_of_likes).append(number_of_likes)
 				$(p_number_of_dislikes).append(number_of_dislikes)
+				$(p_number_of_views).append(number_of_views)
 
 				$('div#information').append(video_tag)
 				$('div#information').append(p_author_name)
@@ -84,6 +90,7 @@ $(function(){
 				$('div#information').append(p_redirect_page)
 				$('div#information').append(p_number_of_likes)
 				$('div#information').append(p_number_of_dislikes)
+				$('div#information').append(p_number_of_views)
 			}
 		}).fail(function(data){
 			console.log("failed")
